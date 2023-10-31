@@ -39,9 +39,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
         let grabacion = grabaciones[indexPath.row]
         cell.textLabel?.text = grabacion.nombre
+        cell.detailTextLabel?.text = obtenerDuracionFormateada(audioData: grabacion.audio!)
         return cell
     }
     
@@ -53,6 +54,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             reproducirAudio?.play()
             nameGrabacion = grabacion.nombre!
             print("Reproduciendo \(nameGrabacion!)")
+
+
         } catch {
             print("Error al reproducir el audio: \(error.localizedDescription)")
         }
@@ -76,5 +79,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         print("Pausa \(nameGrabacion!)")
     }
+    
+    func obtenerDuracionFormateada(audioData: Data) -> String? {
+        do {
+            let audioPlayer = try AVAudioPlayer(data: audioData)
+            let duration = Int(audioPlayer.duration) // Duración en segundos
+            let minutos = duration / 60
+            let segundos = duration % 60
+
+            // Utilizamos String(format:) para formatear los minutos y segundos con dos dígitos
+            let duracionFormateada = String(format: "%02d:%02d", minutos, segundos)
+            
+            return duracionFormateada
+        } catch {
+            print("Error al obtener la duración del audio: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
 }
 

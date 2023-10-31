@@ -13,6 +13,7 @@ class SoundViewController: UIViewController {
     @IBOutlet weak var reproducirButton: UIButton!
     @IBOutlet weak var nombreTextField: UITextField!
     @IBOutlet weak var agregarButton: UIButton!
+    @IBOutlet weak var tiempoLabel: UILabel!
     
     var grabarAudio:AVAudioRecorder?
     var reproducirAudio:AVAudioPlayer?
@@ -77,6 +78,17 @@ class SoundViewController: UIViewController {
             
             grabarAudio = try AVAudioRecorder(url: audioURL!, settings: settings)
             grabarAudio!.prepareToRecord()
+            
+            Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
+                if let grabarAudio = self.grabarAudio {
+                    let tiempo = grabarAudio.currentTime
+                    let microsegundos = Int((tiempo.truncatingRemainder(dividingBy: 1)) * 1000000)
+                    let segundos = Int(tiempo) % 60
+                    let minutos = (Int(tiempo) / 60) % 60
+                    let horas = Int(tiempo) / 3600
+                    self.tiempoLabel.text = String(format: "%02d:%02d:%02d.%02d", horas, minutos, segundos, microsegundos / 10000)
+                }
+            }
             
         } catch let error as NSError{
             print(error)
