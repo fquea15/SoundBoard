@@ -57,11 +57,22 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="GRABACIONES" id="XR7-ar-I4H">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="dlT-5E-c8a">
-                            <connections>
-                                <segue destination="lpY-Ft-kxg" kind="show" id="Nbz-EU-Rce"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="dlT-5E-c8a">
+                                <connections>
+                                    <segue destination="lpY-Ft-kxg" kind="show" id="Nbz-EU-Rce"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="Rvb-h4-95E">
+                                <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="Yqf-tw-xN7">
+                                    <rect key="frame" x="260.5" y="5" width="92" height="34"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <connections>
+                                        <action selector="volumenControl:" destination="BYZ-38-t0r" eventType="valueChanged" id="V1C-CV-EUi"/>
+                                    </connections>
+                                </slider>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tablaGrabaciones" destination="MhP-kN-wPu" id="ex0-vZ-0yo"/>

@@ -96,6 +96,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return nil
         }
     }
+    
+    @IBAction func volumenControl(_ sender: UISlider) {
+        let volumen = sender.value
+        if let reproducirAudio = reproducirAudio {
+            reproducirAudio.volume = volumen
+        }
+    }
+    
+    
 
 }
 
